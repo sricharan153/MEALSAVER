@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <style>
+      body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.bodys {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/premium-photo/vibrant-assortment-traditional-indian-cuisine-delights_388444-117842.jpg'); /* Add your image here */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            backdrop-filter: blur(5px); /* Optional: adds a blur effect to the background */
+        }
+
+.details-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  /* Added styles */
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  /* Added styles */
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.details-container p {
+  font-size: 18px;
+  color: #333;
+  margin: 10px 0;
+  /* Added styles */
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+/* Added styles for buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#acceptBtn {
+  margin-left: 10px;
+}
+    </style>
+</head>
+<body class="bodys">
+    <div class="details-container">
+        <h2>User Details</h2>
+        <div id="userDetails"></div>
+        <button onclick="window.location.href='agentsaccount.html'">Go Back</button>
+        <button onclick="acceptDetails()" id="acceptBtn">Accept</button>
+    </div>
+    
+
+    <script>
+        // Retrieve the data from local storage
+        const userData = JSON.parse(localStorage.getItem("userFormData"));
+
+        if (userData && userData.length > 0) {
+            const lastEntry = userData[userData.length - 1]; // Get the last submitted data
+
+            // Display the data
+            const userDetailsDiv = document.getElementById('userDetails');
+            userDetailsDiv.innerHTML = `
+                <p><strong>Name:</strong> ${lastEntry.name}</p>
+                <p><strong>Email:</strong> ${lastEntry.email}</p>
+                <p><strong>Type of Food:</strong> ${lastEntry.food}</p>
+                <p><strong>Date of Expiry:</strong> ${lastEntry.date}</p>
+                <p><strong>Quantity (in servings):</strong> ${lastEntry.quantity}</p>
+                <p><strong>Location:</strong> ${lastEntry.location}</p>
+            `;
+        } else {
+            document.getElementById('userDetails').innerHTML = '<p>No data available.</p>';
+        }
+
+        function acceptDetails() {
+            // Alert to confirm the request
+            alert("The request is sent successfully.");
+
+            // Clear the data from local storage
+            localStorage.removeItem("userFormData");
+
+            // Clear the displayed data
+            document.getElementById('userDetails').innerHTML = '<p>No data available.</p>';
+        }
+    </script>
+</body>
+</html>

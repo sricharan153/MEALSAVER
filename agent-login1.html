@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .data {
+            margin-bottom: 20px;
+        }
+
+        .data label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .data input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #location {
+            font-weight: bold;
+        }
+
+        #location a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #location a:hover {
+            text-decoration: underline;
+        }
+
+        .bodys {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://c4.wallpaperflare.com/wallpaper/899/593/118/cuisine-food-india-indian-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #f1f1f1;
+        }
+    </style>
+</head>
+<body class="bodys">
+    <div class="container">
+        <h1>Welcome Back</h1>
+        <div id="storedData"></div>
+        <div class="data">
+            <label for="emailInput">Recipient's Email Address:</label>
+            <input type="email" id="emailInput" placeholder="Enter recipient's email address" required>
+        </div>
+        <button id="acceptBtn">Send Location</button>
+        <p id="location"></p>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your user ID
+        (function() {
+            emailjs.init("5eIT4D7f0xbmnLZEP");
+        })();
+
+        // Display stored agent data
+        function displayStoredData() {
+            const name = localStorage.getItem('agentName');
+            const email = localStorage.getItem('agentEmail');
+            const mobile = localStorage.getItem('agentMobile');
+
+            if (name && email && mobile) {
+                const storedDataDiv = document.getElementById('storedData');
+                storedDataDiv.innerHTML = `
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Mobile Number:</strong> ${mobile}</p>
+                `;
+            } else {
+                document.getElementById('storedData').innerHTML = '<p>No agent data available.</p>';
+            }
+        }
+
+        // Call function to display data on page load
+        displayStoredData();
+
+        // Handle click event to send location
+        document.getElementById('acceptBtn').addEventListener('click', () => {
+            const emailInput = document.getElementById('emailInput').value;
+
+            if (!emailInput) {
+                alert("Please enter the recipient's email address.");
+                return;
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Create a Google Maps link with the location
+                    const googleMapsLink = `https://www.google.com/maps/?q=${latitude},${longitude}`;
+
+                    // Store location data in localStorage
+                    localStorage.setItem('agentLocation', JSON.stringify({ latitude, longitude }));
+
+                    // Send the location data via EmailJS
+                    emailjs.send("service_1wqytcq", "template_hf4af8x", {
+                        recipientEmail: emailInput,
+                        message: `Here is the agent's location: <a href="${googleMapsLink}" target="_blank">${googleMapsLink}</a>`
+                    })
+                    .then(function(response) {
+                        alert('Location sent successfully!');
+                        console.log('SUCCESS!', response.status, response.text);
+                        window.location.href = 'agent-account.html';
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                        alert('Failed to send the location. Please try again.');
+                    });
+                }, (error) => {
+                    console.error("Error retrieving location: ", error);
+                    alert("Unable to retrieve your location.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #87CEEB; /* A nice light blue background color */
+            font-family: 'Open Sans', sans-serif;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            margin: 40px auto;
+        }
+        .login-container h2 {
+            font-weight: bold;
+            color: #333;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #337ab7;
+            color: #fff;
+        }
+        .btn-success {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .bodys {
+            font-family: Arial, sans-serif;
+            height: 80px;
+            background-image: url('https://c1.wallpaperflare.com/preview/427/745/192/notebook-natural-laptop-macbook.jpg'); /* Replace with a colorful food waste image */
+            background-size: cover;
+            color: #130a0a;
+        }
+    </style>
+</head>x
+<body class="bodys">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 login-container">
+                <h2 class="text-center">Agent Registration</h2>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" id="mobile" name="mobile" class="form-control" required>
+                    </div>
+                    <input type="submit" value="Register" class="btn btn-primary btn-block">
+                </form>
+                <a href="agentsaccount.html" class="btn btn-success btn-block">Next</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+
+            // Store form values in localStorage
+            localStorage.setItem('agentName', name);
+            localStorage.setItem('agentEmail', email);
+            localStorage.setItem('agentMobile', mobile);
+
+            // Display a success message
+            alert("Registration completed successfully!");
+
+            // Redirect to the next page (e.g., agent-login.html)
+            window.location.href = 'agent-login.html';
+        });
+    </script>
+</body>
+</html>

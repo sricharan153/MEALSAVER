@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        } 
+        .bodys {
+            font-family: Arial, sans-serif;
+            height: 50px;
+            background-image: url('https://img.freepik.com/free-photo/top-view-circular-food-frame_23-2148723455.jpg'); /* Replace with a colorful food waste image */
+            background-size: cover;
+            color: #130a0a;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .location-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bodys">
+    <div class="container">
+        <h1>Agent Account Details</h1>
+        <div id="locationInfo" class="location-info"></div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const locationData = localStorage.getItem('agentLocation');
+
+            if (locationData) {
+                const { latitude, longitude } = JSON.parse(locationData);
+                const locationInfoDiv = document.getElementById('locationInfo');
+                const mapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                locationInfoDiv.innerHTML = `
+                    <p><strong>Latitude:</strong> ${latitude}</p>
+                    <p><strong>Longitude:</strong> ${longitude}</p>
+                    <p><a href="${mapsLink}" target="_blank">View Location on Google Maps</a></p>
+                `;
+            } else {
+                document.getElementById('locationInfo').innerHTML = "<p>No location data found.</p>";
+            }
+
+            // Optionally, clear the location data from localStorage
+            localStorage.removeItem('agentLocation');
+        });
+    </script>
+</body>
+</html>

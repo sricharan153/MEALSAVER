@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Report an Issue</title>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        select, textarea, input[type="file"], button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #confirmation {
+            text-align: center;
+            margin-top: 20px;
+            background-color: #e7f4e4;
+            border: 1px solid #8bc34a;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .back-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            display: block;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>If you're facing any problems with our service, please use the form below to report the issue.</p>
+        
+        <form id="issue-form">
+            <label for="issue-type">Issue Type</label>
+            <select id="issue-type" name="issue-type" required>
+                <option value="" disabled selected>Select an issue type</option>
+                <option value="service">Service Not Working</option>
+                <option value="billing">Billing Problem</option>
+                <option value="account">Account Issue</option>
+                <option value="other">Other</option>
+            </select>
+            
+            <label for="description">Description of the Issue</label>
+            <textarea id="description" name="description" placeholder="Describe the problem here..." required></textarea>
+
+            <label for="file-upload">Attach Screenshot (Optional)</label>
+            <input type="file" id="file-upload" name="file-upload" accept="image/*">
+            
+            <button type="submit">Submit</button>
+        </form>
+
+        <p>Alternatively, you can reach us via:</p>
+        <ul>
+            <li>Email: support@example.com</li>
+            <li>Phone: +123 456 7890</li>
+            <li>Address: 123 Service Road, City, Country</li>
+        </ul>
+        
+        <div id="confirmation" class="hidden">
+            <p>Thank you for reporting the issue. We will get back to you shortly!</p>
+        </div>
+
+        <!-- Go Back Button -->
+        <button class="back-button" onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        // JavaScript to handle the form submission and Go Back button
+        function goBack() {
+            window.location.href = "Main.html"; // Link to the Food Waste Management System page
+        }
+
+        document.getElementById('issue-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Show confirmation message
+            document.getElementById('confirmation').classList.remove('hidden');
+            
+            // Hide the form after submission
+            document.getElementById('issue-form').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

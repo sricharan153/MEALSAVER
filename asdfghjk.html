@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEALSAVER - Agent Dashboard</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p, label, input, select, button {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #0056b3; /* Dark blue */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0056b3; /* Dark blue */
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #28a745; /* Green */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green */
+        }
+
+        #status-message,
+        #location-status {
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        #status-message {
+            font-weight: bold;
+        }
+
+        #location-status {
+            color: #333;
+        }
+
+        button[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>MEALSAVER - Agent Dashboard</h1>
+    <section id="pickup-status">
+        <h2>Update Pickup Status</h2>
+        <label for="donation-id">Donation ID:</label>
+        <input type="text" id="donation-id" placeholder="Enter Donation ID" aria-required="true">
+        <label for="status">Status:</label>
+        <select id="status" aria-required="true">
+            <option value="" disabled selected>Select Status</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <button onclick="updatePickupStatus()">Update Status</button>
+        <p id="status-message" aria-live="polite"></p>
+    </section>
+    <section id="location-tracking">
+        <h2>Track Your Location</h2>
+        <button onclick="trackAgentLocation()">Start Tracking</button>
+        <p id="location-status">Location: Not tracking</p>
+    </section>
+    <script>
+        // Function to update pickup status
+        function updatePickupStatus() {
+            const donationId = document.getElementById('donation-id').value.trim();
+            const status = document.getElementById('status').value;
+            const statusMessage = document.getElementById('status-message');
+            
+            if (donationId && status) {
+                // Update the pickup status logic here
+                // For demonstration, we'll just show a success message
+                statusMessage.textContent = `Pickup status for Donation ID ${donationId} updated to ${status}.`;
+                statusMessage.style.color = 'green';
+            } else {
+                statusMessage.textContent = 'Please enter a Donation ID and select a status.';
+                statusMessage.style.color = 'red';
+            }
+        }
+
+        // Function to start tracking agent location
+        function trackAgentLocation() {
+            const locationStatus = document.getElementById('location-status');
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                        locationStatus.innerHTML = `Location: <a href="${mapUrl}" target="_blank">View on Google Maps</a>`;
+                        locationStatus.style.color = '#333';
+                    },
+                    function(error) {
+                        locationStatus.textContent = 'Error retrieving location.';
+                        locationStatus.style.color = 'red';
+                    },
+                    { enableHighAccuracy: true }
+                );
+            } else {
+                locationStatus.textContent = 'Geolocation is not supported by this browser.';
+                locationStatus.style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>

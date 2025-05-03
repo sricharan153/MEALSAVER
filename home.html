@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <style>
+        body {
+            background: linear-gradient(135deg, #106669, #1dafb4, #8dc1ee); /* Gradient background */
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            padding: 30px;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .cl {
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 40vw;
+            height: 70vh;
+            margin-right: 30px;
+        }
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .content h2 {
+            color: #ffd700; /* Gold color for headings */
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .content h2:first-of-type {
+            color: z#ff6f61; /* Bright orange for the first heading */
+        }
+        .content p {
+            font-size: 1.2rem;
+            color: #fff;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .btn-donate {
+            background-color: #ffd700;
+            border: none;
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .btn-donate:hover {
+            background-color: #f5a623;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://img.freepik.com/premium-photo/leftover-food-waste-bucket-copy-space_1257223-112710.jpg" class="cl" alt="Helping Hand">
+        <div class="content">
+            <h2>Helping the Needy</h2>
+            <h2>India faces a crisis where 1000+ people go to bed hungry every night. Starvation and malnutrition are rampant.</h2>
+            <h2>We aim to eradicate hunger and provide sustainable food solutions for the needy.</h2>
+            <button class="btn-donate mt-3" onclick="button()">Donate Now</button>
+        </div>
+    </div>
+    
+    <script>
+        function button() {
+            window.location.href = 'Main.html';
+        }
+    </script>
+</body>
+</html>
